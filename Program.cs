@@ -22,8 +22,7 @@ namespace Integrator
         private const string Priority = "0.6";
 
         #endregion
-        
-        
+
 
         static void Main(string[] args)
         {
@@ -180,7 +179,7 @@ namespace Integrator
                 File.WriteAllLines(siteMap, lines);
 
                 //update new book files
-                var bookPath = siteMap.ParentPathUtil(3) + TargetBooksPath + bookName;
+                var bookPath = siteMap.ParentPathUtil(3) + TargetBooksPath + "/" + bookName;
                 success = ShellUtil.ExecShell("publish_cpfiles_osx.sh",
                     $"{map} {bookPath} {book + GitbookPath} {bookPath}", true);
 
