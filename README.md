@@ -1,11 +1,11 @@
 # gitbook-integrator
 
 Gitbook一键发布集成工具
-
-### 功能
 
-* Gitbook文档一键发布到[colin-chang.github.io](https://github.com/colin-chang/colin-chang.github.io)项目/books目录
-* 合并Gitbook的Sitemap到[colin-chang.github.io](https://github.com/colin-chang/colin-chang.github.io)
+### 功能
+
+* Gitbook文档一键发布到[colin-chang.github.io](https://github.com/colin-chang/colin-chang.github.io)项目/books目录
+* 合并Gitbook的Sitemap到[colin-chang.github.io](https://github.com/colin-chang/colin-chang.github.io)
 * 此工具兼容 Linux/mac OSX
 
 ### 默认配置
@@ -21,7 +21,7 @@ Gitbook一键发布集成工具
 * .net core 执行shell脚本和shell文件（含参数）
 * .net core XML解析
 
-### 运行
+### 运行
 
 ```sh
 $ sudo sh integrator.sh
