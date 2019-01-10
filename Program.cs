@@ -78,7 +78,7 @@ namespace Integrator
             Console.WriteLine(
                 $"Finish publishing.Total {books.Length} books,{succeed} succeed,{failed} failed. Total {totalElapsed} seconds");
 
-            Push2Git();
+            Push2Git(siteMap.ParentPathUtil(3));
         }
 
         private static string[] GetBooks()
@@ -193,7 +193,7 @@ namespace Integrator
             }
         }
 
-        private static void Push2Git()
+        private static void Push2Git(string projectPath)
         {
             Console.WriteLine("Would you like to update changes to git? y(yes)|n(no) [Default:yes]");
             var answer = Console.ReadLine()?.Trim()?.ToLower();
@@ -202,7 +202,7 @@ namespace Integrator
 
             Console.WriteLine("Please enter your changes log.");
             var msg= Console.ReadLine()?.Trim();
-            ShellUtil.ExecShell("publish_git_osx.sh", msg, true);
+            ShellUtil.ExecShell("publish_git_osx.sh", $"{msg} {projectPath}", true);
         }
     }
 }

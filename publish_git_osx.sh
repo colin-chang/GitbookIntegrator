@@ -1,5 +1,6 @@
 #!/bin/bash
 
-git commit -m $1
+cd $1
+git commit -m $2
 git pull
 git push
