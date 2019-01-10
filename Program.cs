@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
@@ -33,6 +34,7 @@ namespace Integrator
             }
 
             PublishBooks();
+            Console.WriteLine("All Done");
         }
 
         private static void PublishBooks()
@@ -202,7 +204,7 @@ namespace Integrator
 
             Console.WriteLine("Please enter your changes log.");
             var msg= Console.ReadLine()?.Trim();
-            ShellUtil.ExecShell("publish_git_osx.sh", $"{msg} {projectPath}", true);
+            ShellUtil.ExecShell("publish_git_osx.sh", $"{projectPath} {msg}", true); 
         }
     }
 }
