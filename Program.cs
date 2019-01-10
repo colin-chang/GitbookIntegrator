@@ -72,11 +72,13 @@ namespace Integrator
                 watch.Restart();
             }
 
-            watch.Stop();
+            watch.Restart();
             Console.WriteLine("Book\tStatus\tElapsed");
             Console.WriteLine(string.Join("\r\n", summary));
             Console.WriteLine(
                 $"Finish publishing.Total {books.Length} books,{succeed} succeed,{failed} failed. Total {totalElapsed} seconds");
+
+            Push2Git();
         }
 
         private static string[] GetBooks()
@@ -189,6 +191,18 @@ namespace Integrator
             {
                 return false;
             }
+        }
+
+        private static void Push2Git()
+        {
+            Console.WriteLine("Would you like to update changes to git? y(yes)|n(no) [Default:yes]");
+            var answer = Console.ReadLine()?.Trim()?.ToLower();
+            if (string.Equals(answer, "n") || string.Equals(answer, "no"))
+                return;
+
+            Console.WriteLine("Please enter your changes log.");
+            var msg= Console.ReadLine()?.Trim();
+            ShellUtil.ExecShell("publish_git_osx.sh", msg, true);
         }
     }
 }
