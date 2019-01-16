@@ -13,8 +13,6 @@ namespace Integrator
     class Program
     {
         #region const variables
-
-        private const string TargetBooksPath = "/books";
         private const string GitbookPath = "/_book";
         private const string TargetSiteMapPath = "/pages/pages-root-folder/sitemap.xml";
         private const string GitbookSiteMapPath = "/_book/sitemap.xml";
@@ -171,7 +169,7 @@ namespace Integrator
                     //edit new item
                     var url = urls.ElementAt(i);
                     var loc = url.Element(GetXElementFullName("loc"));
-                    loc?.SetValue(Regex.Replace(loc?.Value, "(https?://.+?)/", $"$1{TargetBooksPath}/{bookName}/"));
+                    loc?.SetValue(Regex.Replace(loc?.Value, "(https?://.+?)/", $"$1/{bookName}/"));
                     url.Element(GetXElementFullName("changefreq"))?.SetValue(ChangeFreq);
                     url.Element(GetXElementFullName("priority"))?.SetValue(Priority);
 
@@ -182,10 +180,9 @@ namespace Integrator
                 lines.Insert(begin + urls.Count(), $"<!-- {bookName} end -->");
                 File.WriteAllLines(siteMap, lines);
 
-                //update new book files
-                var bookPath = siteMap.ParentPathUtil(3) + TargetBooksPath + "/" + bookName;
-                success = ShellUtil.ExecShell("publish_cpfiles_osx.sh",
-                    $"{map} {bookPath} {book + GitbookPath} {bookPath}", true);
+                //deploy book
+                success = ShellUtil.ExecShell("publish_deploy_osx.sh",
+                    $"{map} {Path.GetDirectoryName(map)} {bookName}", true);
 
                 return success;
             }
@@ -203,8 +200,8 @@ namespace Integrator
                 return;
 
             Console.WriteLine("Please enter your changes log.");
-            var msg= Console.ReadLine()?.Trim();
-            ShellUtil.ExecShell("publish_git_osx.sh", $"{projectPath} {msg}", true); 
+            var msg = Console.ReadLine()?.Trim();
+            ShellUtil.ExecShell("publish_git_osx.sh", $"{projectPath} {msg}", true);
         }
     }
 }

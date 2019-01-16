@@ -9,7 +9,7 @@
     <None Update="publish_build_osx.sh">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="publish_cpfiles_osx.sh">
+    <None Update="publish_deploy_osx.sh">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="publish_git_osx.sh">
