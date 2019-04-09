@@ -7,12 +7,14 @@ using System.Runtime.ConstrainedExecution;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
+using ColinChang.ShellHelper;
 
 namespace Integrator
 {
     class Program
     {
         #region const variables
+
         private const string GitbookPath = "/_book";
         private const string TargetSiteMapPath = "/pages/pages-root-folder/sitemap.xml";
         private const string GitbookSiteMapPath = "/_book/sitemap.xml";
@@ -103,7 +105,7 @@ namespace Integrator
             if (string.IsNullOrWhiteSpace(bno) || !int.TryParse(bno, out var no) || no >= books.Length)
                 return books;
 
-            return new string[] {books[no]};
+            return new [] {books[no]};
         }
 
         private static string GetSiteMap()
@@ -131,7 +133,7 @@ namespace Integrator
             try
             {
                 //build book
-                var success = ShellUtil.ExecShell("publish_build_osx.sh", book, true);
+                var success = ShellHelper.ExecuteFile("publish_build_osx.sh", book, true);
                 if (!success)
                     return false;
 
@@ -181,7 +183,7 @@ namespace Integrator
                 File.WriteAllLines(siteMap, lines);
 
                 //deploy book
-                success = ShellUtil.ExecShell("publish_deploy_osx.sh",
+                success = ShellHelper.ExecuteFile("publish_deploy_osx.sh",
                     $"{map} {Path.GetDirectoryName(map)} {bookName}", true);
 
                 return success;
@@ -201,7 +203,7 @@ namespace Integrator
 
             Console.WriteLine("Please enter your changes log.");
             var msg = Console.ReadLine()?.Trim();
-            ShellUtil.ExecShell("publish_git_osx.sh", $"{projectPath} {msg}", true);
+            ShellHelper.ExecuteFile("publish_git_osx.sh", $"{projectPath} {msg}", true);
         }
     }
 }
